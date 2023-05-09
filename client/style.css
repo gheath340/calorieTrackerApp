@@ -1,0 +1,298 @@
+body {
+    background-color: #F96167;
+    color: #FCE77D;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#mainDiv {
+    display: none;
+}
+
+#loginDiv {
+    
+}
+
+#registerDiv {
+    display: none;
+}
+
+button {
+    border: .1em solid #FCE77D;
+    border-radius: 15%;
+    background-color: #FCE77D;
+    color: #F96167;
+    transition: .3s;
+}
+
+button:hover {
+    opacity: .6;
+    cursor:pointer;
+}
+
+li {
+    list-style: none;
+}
+
+#calorie-header {
+    text-align: center;
+}
+
+input {
+    background-color: #FCE77D;
+    border: .1em solid #F96167;
+    color: #F96167;
+}
+
+select {
+    background-color: #FCE77D;
+    border: .1em solid #F96167;
+    color: #F96167;
+}
+
+select:hover {
+    cursor:pointer;
+}
+
+#add-food-h2 {
+    position: absolute;
+    left: 25%;
+    top: 18%;
+}
+
+#food-select {
+    position: absolute;
+    left: 15%;
+    top: 26%;
+}
+
+#foods-label {
+    font-weight: bold;
+}
+
+#existing-items {
+    position: absolute;
+    width: 250%;
+    left: 30%;
+    top: -90%;
+}
+
+#servings-eaten {
+    position: absolute;
+    left: 35%;
+    top: 25%;
+}
+
+#servings-eaten-label {
+    font-weight: bold;
+    left: 55%;
+    top: 70%;
+}
+
+#servings-eaten-input {
+    left: 45%;
+    top: 95%;
+}
+
+#add-existing-button {
+    position: absolute;
+    left: 42%;
+    top: 200%;
+}
+
+#new-item-text {
+    position: absolute;
+    left: 63%;
+    top: 18%;
+}
+
+#new-item-all {
+    position: absolute;
+    left: 60%;
+    top: 26%; 
+}
+
+#add-new-button {
+    position: absolute;
+    left: 65%;
+    top: 42%;
+}
+
+#day-cals {
+    position: absolute;
+    left: 61%;
+    top: 50%;
+}
+
+#cals-p {
+    text-align: center;
+}
+
+#macros-label {
+    position: absolute;
+    left: 65%;
+    top: 61.5%;
+}
+
+#day-protein {
+    position: absolute;
+    left: 59%;
+    top: 66%;
+}
+
+#protein-p {
+    text-align: center;
+}
+
+#day-carbs {
+    position: absolute;
+    left: 66.25%;
+    top: 66%;
+}
+
+#carbs-p {
+    text-align: center;
+}
+
+#day-fat {
+    position: absolute;
+    left: 73.5%;
+    top: 66%;
+}
+
+#fat-p {
+    text-align: center;
+}
+
+#new-day {
+    position: absolute;
+    left: 65.5%;
+    top: 77%;
+}
+
+.list-items {
+    margin: 15px;
+    width: 200%;
+}
+
+.delete-buttons {
+    margin-left: 2%;
+}
+
+.edit-buttons {
+    margin: 2%;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#modalLabel {
+    position: absolute;
+    top: 25%;
+    left: 40%;
+}
+
+#edit-item-name {
+    position: absolute;
+    top: 32%;
+    left: 40%;
+}
+
+#edit-item-servings {
+    position: absolute;
+    top: 39%;
+    left: 40%;
+}
+
+#edit-item-calories {
+    position: absolute;
+    top: 46%;
+    left: 40%;
+}
+
+#edit-item-protein {
+    position: absolute;
+    top: 53%;
+    left: 40%;
+}
+
+#edit-item-fat {
+    position: absolute;
+    top: 60%;
+    left: 40%;
+}
+
+#edit-item-carbs {
+    position: absolute;
+    top: 67%;
+    left: 40%;
+}
+
+#submit-modal {
+    position: absolute;
+    top: 74%;
+    left: 44%;
+}
+
+#loginEmail {
+    position: absolute;
+    top: 25%;
+    left: 42.5%;
+}
+
+#loginPass {
+    position: absolute;
+    top: 30%;
+    left: 42.5%;
+}
+
+#loginButton {
+    position: absolute;
+    top: 35%;
+    left: 42.5%;
+}
+
+#logRegisterbutton {
+    position: absolute;
+    top: 35%;
+    left: 47.5%;
+}
+
+#registerEmail {
+    position: absolute;
+    top: 25%;
+    left: 42.5%;
+}
+
+#registerPass {
+    position: absolute;
+    top: 30%;
+    left: 42.5%;
+}
+
+#registerFirst {
+    position: absolute;
+    top: 35%;
+    left: 42.5%;
+}
+
+#registerLast {
+    position: absolute;
+    top: 40%;
+    left: 42.5%;
+}
+
+#regRegisterButton {
+    position: absolute;
+    top: 45%;
+    left: 47.5%;
+}
