@@ -10,7 +10,7 @@
             //show login/register, hide normal stuff
             //when user logs in start from top call function to load resource
 
-const BASE_URL = "calorie-tracker-rho.vercel.app"
+const BASE_URL = "calorie-tracker-app.vercel.app"
                  //http://localhost:8080/
                  //
 var itemList = []
