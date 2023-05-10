@@ -11,8 +11,9 @@
             //when user logs in start from top call function to load resource
 
 const BASE_URL = "calorie-tracker-app.vercel.app"
-                 //http://localhost:8080/
-                 //
+//http://localhost:8080/
+                 
+                 
 var itemList = []
 //values
 var calsConst = 0

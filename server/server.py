@@ -338,7 +338,7 @@ def main():
     db = FoodsDB()
     db.createFoodsTable()
     db.createUsersTable()
-    db = None #disconnect db
+    #db = None #disconnect db
 
     port = 8080
     if len(sys.argv) > 1:
