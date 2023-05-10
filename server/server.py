@@ -159,7 +159,7 @@ class HttpHandler(BaseHTTPRequestHandler):
         return
     
     def handleUpdateDay(self, id):
-        if "dayId" not in self.sessionData:
+        if "userId" not in self.sessionData:
             self.handle401()
             return
         length = self.headers["Content-Length"]
@@ -170,10 +170,17 @@ class HttpHandler(BaseHTTPRequestHandler):
         protein = decoded_body["protein"][0]
         fat = decoded_body["fat"][0]
         carbs = decoded_body["carbs"][0]
+        #need to add previous values to these
+        
 
         print("raw request body:", decoded_body)
         db = FoodsDB()
         day = db.getDay(id)
+
+        calories += day["calories"]
+        protein += day["protein"]
+        fat += day["fat"]
+        carbs += day["carbs"]
         
         if day:
             day = db.updateDay(calories, protein, fat, carbs, id)
@@ -183,7 +190,6 @@ class HttpHandler(BaseHTTPRequestHandler):
             self.end_headers()
         else:
             self.handleNotFound()
-        return
         return
 
     def handleCreateAuthSession(self): #let them login

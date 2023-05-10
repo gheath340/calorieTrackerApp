@@ -97,9 +97,9 @@ class FoodsDB:
         self.cursor.execute("INSERT INTO days (date, calories, protein, carbs, fat) VALUES (%s, %s, %s, %s, %s)", data)
         self.connection.commit()
 
-    def updateDay(self, calories, protein, carbs, fats):
-        data = [calories, protein, carbs, fats]
-        self.cursor.execute("UPDATE days SET calories = %s, protein = %s, carbs = %s, fat = %s, WHERE id = %s", data)
+    def updateDay(self, calories, protein, carbs, fats, id):
+        data = [calories, protein, carbs, fats, id]
+        self.cursor.execute("UPDATE days SET calories = %s, protein = %s, carbs = %s, fat = %s WHERE id = %s", data)
         self.connection.commit()
     
     def getDay(self, dayID):
