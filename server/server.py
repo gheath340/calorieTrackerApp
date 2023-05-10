@@ -133,6 +133,14 @@ class HttpHandler(BaseHTTPRequestHandler):
         #use 422 code when making sure email is unique
         #encrypted_pass = bcrypt.hash(password)
         return
+    
+    def handleCreateDay(self):
+        
+        return
+
+    def handleGetDay(self):
+
+        return
 
     def handleCreateAuthSession(self): #let them login
         length = self.headers["Content-Length"]
@@ -338,7 +346,8 @@ def main():
     db = FoodsDB()
     db.createFoodsTable()
     db.createUsersTable()
-    #db = None #disconnect db
+    db.createUsersTable()
+    db = None #disconnect db
 
     port = 8080
     if len(sys.argv) > 1:

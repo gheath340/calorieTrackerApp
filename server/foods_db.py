@@ -2,6 +2,7 @@ import os
 import psycopg2
 import psycopg2.extras
 import urllib.parse
+from datetime import date
 
 #create new table for logins (first name, last name, email, ecrypted password)
 class FoodsDB:
@@ -19,12 +20,11 @@ class FoodsDB:
         #     port=url.port
         # )
         self.connection = psycopg2.connect(
-            cursor_factory = psycopg2.extras.RealDictCursor
-            database = "calorieTracker"
-            user = "garrettHeath"
-            pasword = "Floop340"
-            host = "localhost"
-        )
+            cursor_factory = psycopg2.extras.RealDictCursor,
+            database = "calorietracker",
+            user = "garrettheath",
+            password = "Floop340",
+            host = "localhost")
 
         self.cursor = self.connection.cursor()
 
@@ -40,7 +40,7 @@ class FoodsDB:
         self.connection.commit()
 
     def createDaysTable(self):
-
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS days (id SERIAL PRIMARY KEY, date DATE, calories TEXT, protein TEXT, carbs TEXT, fat TEXT)")
         self.connection.commit()
 
     def getAllFoods(self):
@@ -92,12 +92,17 @@ class FoodsDB:
         self.cursor.execute("SELECT * FROM users WHERE email = %s", data)
         return self.cursor.fetchone()
 
-    def createDay(self, calories, protein, carbs, fats):
-        data = [calories, protein, carbs, fats]
-        self.cursor.execute("INSERT INTO days (calories, protein, carbs, fat) VALUES (%s, %s, %s, %s)", data)
+    def createDay(self):
+        data = [date.today(), 0, 0, 0, 0]
+        self.cursor.execute("INSERT INTO days (date, calories, protein, carbs, fat) VALUES (%s, %s, %s, %s, %s)", data)
         self.connection.commit()
 
     def updateDay(self, calories, protein, carbs, fats):
         data = [calories, protein, carbs, fats]
         self.cursor.execute("UPDATE days SET calories = %s, protein = %s, carbs = %s, fat = %s, WHERE id = %s", data)
         self.connection.commit()
+    
+    def getDay(self, dayID):
+        data = [dayID]
+        self.cursor.execute("SELECT * FROM days WHERE id = %s", data)
+        return self.cursor.fetchone()
