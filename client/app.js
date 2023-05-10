@@ -37,14 +37,7 @@ var submitModal = document.querySelector("#submit-modal")
 
 
 newDay.onclick = function () {
-    var dayCals = document.querySelector("#day-cals")
-    var dayProtein = document.querySelector("#day-protein")
-    var dayFat = document.querySelector("#day-fat")
-    var dayCarbs = document.querySelector("#day-carbs")
-    dayCals.innerHTML = 0
-    dayProtein.innerHTML = 0
-    dayFat.innerHTML = 0
-    dayCarbs.innerHTML = 0
+    createDay()
 }
 
 addExisting.onclick = function () {
@@ -195,9 +188,21 @@ function createItem (itemName, servingSize, calories, protein, fat, carbs) {
         },
     }).then(function (response) {
         getData()
-        //list of restaurants gets duplicated
     })
 
+}
+
+function createDay () {
+    fetch(BASE_URL + "days", {
+    method: "POST",
+    credentials: "include",
+    body: [],
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+}).then(function (response) {
+    getData()
+})
 }
 
 function deleteFood (id){

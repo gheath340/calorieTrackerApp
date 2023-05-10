@@ -135,11 +135,55 @@ class HttpHandler(BaseHTTPRequestHandler):
         return
     
     def handleCreateDay(self):
-        
+        db = FoodsDB()
+        db.createDay()
+        self.send_response(201)
+        self.end_headers()
         return
 
-    def handleGetDay(self):
+    def handleGetDay(self, id):
+        if "dayId" not in self.sessionData:
+            self.handle401()
+            return
+        db = FoodsDB()
+        day = db.getDay(id)
+        print(id)
+        
+        if day:
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(bytes(json.dumps(day), "utf-8"))
+        else:
+            self.handleNotFound()
+        return
+    
+    def handleUpdateDay(self, id):
+        if "dayId" not in self.sessionData:
+            self.handle401()
+            return
+        length = self.headers["Content-Length"]
+        request_body = self.rfile.read(int(length)).decode("utf-8")
+        decoded_body = parse_qs(request_body)
 
+        calories = decoded_body["calories"][0]
+        protein = decoded_body["protein"][0]
+        fat = decoded_body["fat"][0]
+        carbs = decoded_body["carbs"][0]
+
+        print("raw request body:", decoded_body)
+        db = FoodsDB()
+        day = db.getDay(id)
+        
+        if day:
+            day = db.updateDay(calories, protein, fat, carbs, id)
+            self.send_response(200)
+            self.send_header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE")
+            self.send_header("Access-Control-Allow-Headers","Content-Type")
+            self.end_headers()
+        else:
+            self.handleNotFound()
+        return
         return
 
     def handleCreateAuthSession(self): #let them login
@@ -212,10 +256,6 @@ class HttpHandler(BaseHTTPRequestHandler):
         db.createDay(calories, protein, carbs, fats)
         self.send_response(201)
         self.end_headers()
-        return
-
-    def handleUpdateDay(self):
-
         return
 
     def handleUpdateItem(self, id):
