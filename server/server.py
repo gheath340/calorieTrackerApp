@@ -246,14 +246,9 @@ class HttpHandler(BaseHTTPRequestHandler):
         parsed_body = parse_qs(request_body)
         print(parsed_body)
 
-        calories = parsed_body["calories"][0]
-        protein = parsed_body["protein"][0]
-        carbs = parsed_body["carbs"][0]
-        fats = parsed_body["fats"][0]
-
         db = FoodsDB()
 
-        db.createDay(calories, protein, carbs, fats)
+        db.createDay()
         self.send_response(201)
         self.end_headers()
         return
@@ -386,7 +381,7 @@ def main():
     db = FoodsDB()
     db.createFoodsTable()
     db.createUsersTable()
-    db.createUsersTable()
+    db.createDaysTable()
     db = None #disconnect db
 
     port = 8080

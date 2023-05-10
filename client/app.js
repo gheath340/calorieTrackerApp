@@ -193,10 +193,12 @@ function createItem (itemName, servingSize, calories, protein, fat, carbs) {
 }
 
 function createDay () {
+    var na = ""
+    var data = "data=" + encodeURIComponent(na)
     fetch(BASE_URL + "days", {
     method: "POST",
     credentials: "include",
-    body: [],
+    body: data,
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
