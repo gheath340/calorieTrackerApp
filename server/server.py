@@ -64,12 +64,28 @@ class HttpHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(bytes(json.dumps(allRecords), "utf-8"))
 
+    def handleListDays(self):
+        if "userId" not in self.sessionData:
+            self.handle401()
+            return
+        db = FoodsDB()
+        allRecords = db.getAllDays()
+        print("all days")
+        print(allRecords)
+         #send status code, 200 means all good
+        self.send_response(200)
+        self.send_header("Content-type", "application/json")
+        self.end_headers()
+        self.wfile.write(bytes(json.dumps(allRecords), "utf-8"))
+
     def handleDayItem(self, id):
         if "userId" not in self.sessionData:
             self.handle401()
             return
         db = FoodsDB()
         day = db.getDay(id)
+        print("single day")
+        print(day)
          #send status code, 200 means all good
         self.send_response(200)
         self.send_header("Content-type", "application/json")
@@ -165,10 +181,9 @@ class HttpHandler(BaseHTTPRequestHandler):
         protein = decoded_body["protein"][0]
         fat = decoded_body["fat"][0]
         carbs = decoded_body["carbs"][0]
-        #need to add previous values to these
         
 
-        print("raw request body:", decoded_body)
+        print("raw update day request body:", decoded_body)
         db = FoodsDB()
         day = db.getDay(id)
 
@@ -318,7 +333,7 @@ class HttpHandler(BaseHTTPRequestHandler):
             if member_id:
                 self.handleDayItem(member_id)
             else:
-                self.handleNotFound()
+                self.handleListDays()
         else:
             self.handleNotFound()
 
