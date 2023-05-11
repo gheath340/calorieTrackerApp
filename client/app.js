@@ -30,56 +30,10 @@ console.log("add existing button query: ", addExisting)
 var modal = document.querySelector("#myModal")
 var submitModal = document.querySelector("#submit-modal")
 
-//say macro values are consts at top and put on site
-//post those to server
-//get those from server make those values the const variables and add the values just gotten from new food
-//post new values to server
-
 
 newDay.onclick = function () {
     createDay()
 }
-
-addExisting.onclick = function () {
-    //get selected food values
-    var select = document.querySelector("#existing-items")
-    var selectedFood = select.options[select.selectedIndex].value
-
-    var servingsEaten = document.querySelector("#servings-eaten-input").value
-    //calc how many cals/macros based of selected food and servings eaten
-    //go into the list, find which dict has the name of selected food
-    var cals
-    var protein 
-    var fat 
-    var carbs
-    for (var i = 0; i < itemList.length; i++) {
-        var name = itemList[i]["name"]
-        if (name == selectedFood) {
-            cals = itemList[i]["calories"]
-            protein = itemList[i]["protein"]
-            fat = itemList[i]["fat"]
-            carbs = itemList[i]["carbs"]
-        }
-    }
-    calsConst += cals
-    proteinConst += protein
-    fatConst += fat
-    carbsConst += carbs
-
-    //add selected food values to daily calories and macros area
-    //get protein fat and carbs and put value in
-    var dayCals = document.querySelector("#cals-p")
-    var dayProtein = document.querySelector("#protein-p")
-    var dayFat = document.querySelector("#fat-p")
-    var dayCarbs = document.querySelector("#carbs-p")
-
-    dayCals.innerHTML = calsConst
-    dayProtein.innerHTML = proteinConst
-    dayFat.innerHTML = fatConst
-    dayCarbs.innerHTML = carbsConst
-
-}
-//items in data are in list form for no reason, figure it out
 
 var goToRegister = document.querySelector("#logRegisterbutton")
 var loginButton = document.querySelector("#loginButton")
@@ -103,7 +57,7 @@ function login (email, password) {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then(function (response) {
-        if (response.status == 404) {
+        if (response.status == 401) {
             alert("Incorrect email or password")
         }else if (response.status == 201) {
             document.getElementById("loginDiv").style.display = "none"
@@ -255,7 +209,94 @@ function updateItem (itemName, servingSize, calories, protein, fat, carbs, id) {
         },
     }).then(function (response) {
         getData()
-        //list of restaurants gets duplicated
+    })
+}
+
+function updateDay (id, calories, protein, fat, carbs) {
+    var data = "calories=" + encodeURIComponent(calories)
+    data += "&protein=" + encodeURIComponent(protein)
+    data += "&fat=" + encodeURIComponent(fat)
+    data += "&carbs=" + encodeURIComponent(carbs)
+
+    fetch(BASE_URL + "days/" + id, {
+        method: "PUT",
+        credentials: "include",
+        body: data,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+    }).then(function (response) {
+        //getData()
+        getDay(id)
+    })
+}
+
+function getDay(id) {
+    fetch(BASE_URL + "days/" + id, {credentials: "include"}).then(function (response) {
+        //get the current day info and fill day info
+        if (response.status == 401) {
+            //hide data ui
+            //show login or register
+            document.getElementById("mainDiv").style.display = "none"
+            document.getElementById("loginDiv").style.display = "block"
+            return;
+        }
+        document.getElementById("loginDiv").style.display = "none"
+        document.getElementById("mainDiv").style.display = "block"
+        response.json().then(function (data) {
+            console.log("day from server: ", data)
+            //display data in html
+            console.log("calories: " + data['fat'])
+            document.getElementById('cals-p').innerHTML = data['calories']
+            document.getElementById('protein-p').innerHTML = data["protein"]
+            document.getElementById('fat-p').innerHTML = data["fat"]
+            document.getElementById('carbs-p').innerHTML  = data["carbs"]
+
+        })
+    })
+}
+
+function updateDayHTML(calories, protein, fat, carbs){
+    var max = 0
+    //get the current days id
+    fetch(BASE_URL + "days", {credentials: "include"}).then(function (response) {
+        response.json().then(function (data) {
+            itemList = data
+            console.log("days: ", itemList)
+            itemList.forEach(function (item) {
+                if(item["id"] > max) {
+                    max = item["id"]
+                }
+            })
+            updateDay(max, calories, protein, fat, carbs)
+
+        })
+    })
+}
+
+function initDay(){
+    //get the max id of all items
+    //set innerhtml to values of max id item
+    var max = 0
+    fetch(BASE_URL + "days", {credentials: "include"}).then(function (response) {
+        response.json().then(function (data) {
+            itemList = data
+            console.log("days: ", itemList)
+            itemList.forEach(function (item) {
+                if(item["id"] > max) {
+                    max = item["id"]
+                }
+            })
+            console.log("max: " + max)
+            itemList.forEach(function (item) {
+                if (item["id"] == max) {
+                    document.getElementById('cals-p').innerHTML = item['calories']
+                    document.getElementById('protein-p').innerHTML = item["protein"]
+                    document.getElementById('fat-p').innerHTML = item["fat"]
+                    document.getElementById('carbs-p').innerHTML  = item["carbs"]
+                }
+            })
+        })
     })
 }
 
@@ -278,7 +319,8 @@ function getData () {
             //stuff goes below this
             var listOfItems = document.querySelector("#existing-items") 
             console.log("list query: ", listOfItems)
-
+    //display day info
+            initDay()
     //empty list so it doesnt have it multiple times
             listOfItems.innerHTML = ""
             document.querySelector('#new-item-name').value = ""
@@ -295,14 +337,6 @@ function getData () {
                 newListItem.innerHTML = item["name"] + " " + item["servingsize"]
                 newListItem.classList.add("list-items")
 
-                //make add item button for each item
-                var addButton = document.createElement("button")
-                addButton.innerHTML = "Add item"
-                addButton.classList.add("add-buttons")
-                addButton.onclick = function () {
-
-
-                }
                 //make delete button child for each item
                 var deleteButton = document.createElement("button")
                 deleteButton.innerHTML = "Delete"
@@ -331,6 +365,19 @@ function getData () {
                         document.querySelector('#edit-item-carbs-val').value = item["carbs"]
                 }
                 newListItem.appendChild(editButton)
+                //make add button for each item
+                var addButton = document.createElement("button")
+                addButton.innerHTML = "Add"
+                addButton.classList.add("add-buttons")
+                addButton.onclick = function () {
+                    var calories = item["calories"]
+                    var protein = item["protein"]
+                    var fat = item["fat"]
+                    var carbs = item["carbs"]
+
+                    updateDayHTML(calories, protein, fat, carbs)
+                }
+                newListItem.appendChild(addButton)
                 listOfItems.appendChild(newListItem)
     })
             })
