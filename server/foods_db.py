@@ -40,7 +40,7 @@ class FoodsDB:
         self.connection.commit()
 
     def createDaysTable(self):
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS days (id SERIAL PRIMARY KEY, date DATE, calories TEXT, protein TEXT, carbs TEXT, fat TEXT)")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS days (id SERIAL PRIMARY KEY, calories TEXT, protein TEXT, carbs TEXT, fat TEXT)")
         self.connection.commit()
 
     def getAllFoods(self):
@@ -93,12 +93,12 @@ class FoodsDB:
         return self.cursor.fetchone()
 
     def createDay(self):
-        data = [date.today(), 0, 0, 0, 0]
-        self.cursor.execute("INSERT INTO days (date, calories, protein, carbs, fat) VALUES (%s, %s, %s, %s, %s)", data)
+        data = [0, 0, 0, 0]
+        self.cursor.execute("INSERT INTO days (calories, protein, carbs, fat) VALUES (%s, %s, %s, %s)", data)
         self.connection.commit()
 
     def updateDay(self, calories, protein, carbs, fats, id):
-        data = [calories, protein, carbs, fats, id]
+        data = [str(calories), str(protein), str(carbs), str(fats), str(id)]
         self.cursor.execute("UPDATE days SET calories = %s, protein = %s, carbs = %s, fat = %s WHERE id = %s", data)
         self.connection.commit()
     
@@ -106,3 +106,5 @@ class FoodsDB:
         data = [dayID]
         self.cursor.execute("SELECT * FROM days WHERE id = %s", data)
         return self.cursor.fetchone()
+    
+    

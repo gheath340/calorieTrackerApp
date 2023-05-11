@@ -64,6 +64,18 @@ class HttpHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(bytes(json.dumps(allRecords), "utf-8"))
 
+    def handleDayItem(self, id):
+        if "userId" not in self.sessionData:
+            self.handle401()
+            return
+        db = FoodsDB()
+        day = db.getDay(id)
+         #send status code, 200 means all good
+        self.send_response(200)
+        self.send_header("Content-type", "application/json")
+        self.end_headers()
+        self.wfile.write(bytes(json.dumps(day), "utf-8"))
+
     def handleGetOneFood(self, id):
         if "userId" not in self.sessionData:
             self.handle401()
@@ -140,23 +152,6 @@ class HttpHandler(BaseHTTPRequestHandler):
         self.send_response(201)
         self.end_headers()
         return
-
-    def handleGetDay(self, id):
-        if "dayId" not in self.sessionData:
-            self.handle401()
-            return
-        db = FoodsDB()
-        day = db.getDay(id)
-        print(id)
-        
-        if day:
-            self.send_response(200)
-            self.send_header("Content-type", "application/json")
-            self.end_headers()
-            self.wfile.write(bytes(json.dumps(day), "utf-8"))
-        else:
-            self.handleNotFound()
-        return
     
     def handleUpdateDay(self, id):
         if "userId" not in self.sessionData:
@@ -177,10 +172,15 @@ class HttpHandler(BaseHTTPRequestHandler):
         db = FoodsDB()
         day = db.getDay(id)
 
-        calories += day["calories"]
-        protein += day["protein"]
-        fat += day["fat"]
-        carbs += day["carbs"]
+        calories = int(calories)
+        protein = int(protein)
+        fat = int(fat)
+        carbs = int(carbs)
+
+        calories += int(day["calories"])
+        protein += int(day["protein"])
+        fat += int(day["fat"])
+        carbs += int(day["carbs"])
         
         if day:
             day = db.updateDay(calories, protein, fat, carbs, id)
@@ -250,7 +250,6 @@ class HttpHandler(BaseHTTPRequestHandler):
         length = self.headers["Content-Length"]
         request_body = self.rfile.read(int(length)).decode("utf-8")
         parsed_body = parse_qs(request_body)
-        print(parsed_body)
 
         db = FoodsDB()
 
@@ -315,6 +314,11 @@ class HttpHandler(BaseHTTPRequestHandler):
                 self.handleListItems()
             else:
                 self.handleGetOneFood(member_id)
+        elif collection_name == "days":
+            if member_id:
+                self.handleDayItem(member_id)
+            else:
+                self.handleNotFound()
         else:
             self.handleNotFound()
 
@@ -356,7 +360,6 @@ class HttpHandler(BaseHTTPRequestHandler):
         else:
             collection_name = path_parts[1]
             member_id = None
-
         if collection_name == "foods":
             if member_id:
                 self.handleUpdateItem(member_id)
