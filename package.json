@@ -7,12 +7,13 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-css": "tailwindcss build -i client/src/style.css -o client/public/style.css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "live-server": "^1.1.0",
     "tailwindcss": "^3.3.2"
   }
 }
