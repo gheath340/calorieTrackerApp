@@ -7,7 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "npx tailwindcss build -i client/src/style.css -o client/public/style.css"
+    "build": "tailwindcss build -i client/src/style.css -o client/public/style.css",
+    "watch": "tailwindcss build -i client/src/style.css -o client/public/style.css --watch"
   },
   "keywords": [],
   "author": "",
