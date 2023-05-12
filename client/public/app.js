@@ -1,18 +1,5 @@
-     //figure out how to add the cals and macros of the day to data
-//and press button to start new day
-
-
-//WHEN PAGE LOADS
-    //load resource (get foods) probably doing this already
-        //if response gave 200 status code
-            //hide all login/register stuff, show normal stuff
-        //if status code 401
-            //show login/register, hide normal stuff
-            //when user logs in start from top call function to load resource
-
 const BASE_URL = "http://localhost:8080/";
-                 
-                 
+                       
 var itemList = []
 //values
 var calsConst = 0
@@ -308,10 +295,12 @@ function getData () {
             //show login or register
             document.getElementById("mainDiv").style.display = "none"
             document.getElementById("loginDiv").style.display = "block"
+            document.getElementById("registerDiv").style.display = "none"
             return;
         }
         document.getElementById("loginDiv").style.display = "none"
         document.getElementById("mainDiv").style.display = "block"
+        document.getElementById("registerDiv").style.display = "none"
         response.json().then(function (data) {
             itemList = data
             console.log("items from server: ", itemList)
