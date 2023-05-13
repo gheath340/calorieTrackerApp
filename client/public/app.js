@@ -225,11 +225,11 @@ function getDay(id) {
             //hide data ui
             //show login or register
             document.getElementById("mainDiv").style.display = "none"
-            document.getElementById("loginDiv").style.display = "block"
+            //document.getElementById("loginDiv").style.display = "block"
             return;
         }
         document.getElementById("loginDiv").style.display = "none"
-        document.getElementById("mainDiv").style.display = "block"
+        //document.getElementById("mainDiv").style.display = "block"
         response.json().then(function (data) {
             console.log("day from server: ", data)
             //display data in html
@@ -294,12 +294,12 @@ function getData () {
             //hide data ui
             //show login or register
             document.getElementById("mainDiv").style.display = "none"
-            document.getElementById("loginDiv").style.display = "block"
+            //document.getElementById("loginDiv").style.display = "block"
             document.getElementById("registerDiv").style.display = "none"
             return;
         }
         document.getElementById("loginDiv").style.display = "none"
-        document.getElementById("mainDiv").style.display = "block"
+        //document.getElementById("mainDiv").style.display = "block"
         document.getElementById("registerDiv").style.display = "none"
         response.json().then(function (data) {
             itemList = data
@@ -344,7 +344,7 @@ function getData () {
                 editButton.classList.add("edit-buttons")
                 editButton.onclick = function () {
                     console.log("Edit button pressed", item.id)   
-                        modal.style.display = "block"
+                        //modal.style.display = "block"
                         itemId = item.id
                         document.querySelector('#edit-item-name-val').value = item["name"]
                         document.querySelector('#edit-item-servings-val').value = item["servingsize"]

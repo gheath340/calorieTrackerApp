@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,21 +7,24 @@
     <link rel="stylesheet" href= "style.css"></link>
     <title>Calorie Tracker</title>
 </head>
-<body class="text-black font-mono font-medium tracking-tight">
-    <h1 id="calorie-header" class="text-4xl">Calorie Tracker</h1>
-    <div id="loginDiv">
-        <div id="loginEmail">
-            <label for="loginEmail">Email:</label>
-            <input name='loginEmail' type="text" id="emailInput">
+<body class="text-black font-mono font-medium tracking-tight antialiased flex flex-col justify-center items-center h-full gap-7">
+    <h1 id="calorie-header" class="text-4xl basis-auto">Calorie Tracker</h1>
+    <div class="flex flex-col justify-center items-center basis-auto gap-1 h-1/2 w-1/4">
+        <div id="loginDiv" class="flex flex-col justify-center items-center basis-auto gap-1">
+            <div id="loginEmail" class="justify-center items-center">
+                <label for="loginEmail">Email</label>
+                <input name='loginEmail' type="text" id="emailInput" class="border-2 rounded-md border-gray-200 hover:border-gray-400">
+            </div>
+            <div id="loginPass" class="justify-center content-center">
+                <label for="loginPass">Password</label>
+                <input name='loginPass' type="text" id="passwordInput" class="border-2 rounded-md border-gray-200 hover:border-gray-400">
+            </div>
+            <div class="flex-row gap-2">
+                <button id="loginButton" class="bg-indigo-400 rounded-md hover:bg-indigo-300 p-1">Login</button>
+                <button id="logRegisterbutton" class="bg-indigo-400 rounded-md hover:bg-indigo-300 p-1">Register</button>
+            </div>
         </div>
-        <div id="loginPass">
-            <label for="loginPass">Password: </label>
-            <input name='loginPass' type="text" id="passwordInput">
-        </div>
-        <button id="loginButton" class="bg-indigo-400 border-2 rounded-md border-indigo-400 antialiased">Login</button>
-        <button id="logRegisterbutton" class="bg-indigo-400 border-2 rounded-md border-indigo-400 antialiased">Register</button>
-    </div>
-
+    </div>  
     <div id="registerDiv">
         <div id="registerEmail">
             <label for="registerEmail">Email: </label>
