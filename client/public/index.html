@@ -7,8 +7,8 @@
     <link rel="stylesheet" href= "style.css"></link>
     <title>Calorie Tracker</title>
 </head>
-<body class="text-black font-sans font-medium tracking-tight antialiased flex flex-col justify-center items-center h-full gap-5">
-    <div class="flex flex-col justify-center items-center w-1/3 h-1/2 shadow-xl">
+<body class="text-black font-['Cambria'] font-medium tracking-tight antialiased flex flex-col justify-center items-center h-full gap-5 bg-sky-200">
+    <div id="loginDiv" class="flex flex-col justify-center items-center w-1/3 h-1/2 shadow-xl bg-sky-300/25">
         <div class="flex flex-col justify-center items-center gap-3 w-1/2 h-1/3">
             <h1 id="calorie-header" class="text-4xl w-3/4 justify-center items-center">Calorie Tracker</h1>
             <h2 class="text-2xl w-1/4 justify-center items-center">Sign in</h2>
@@ -21,8 +21,8 @@
                 <input placeholder="Password" name='loginPass' type="text" id="passwordInput" class="border-2 rounded-md border-gray-200 hover:border-gray-400 h-full w-full">
             </div>
             <div class="flex flex-row justify-center content-center gap-4 w-3/4">
-                <button id="loginButton" class="bg-violet-700 rounded-md hover:bg-violet-600 p-1 text-white w-1/2">Login</button>
-                <button id="logRegisterbutton" class="bg-violet-700 rounded-md hover:bg-violet-600 p-1 text-white w-1/2">Register</button>
+                <button id="loginButton" class="rounded-md hover:bg-sky-700 p-1 text-white w-1/2 bg-sky-900">Login</button>
+                <button id="logRegisterbutton" class="rounded-md hover:bg-sky-700 p-1 text-white w-1/2 bg-sky-900">Register</button>
             </div>
         </div>
     </div>
@@ -49,96 +49,99 @@
     </div>
 
     <div id="mainDiv">
-        <h2 id="add-food-h2">Add food</h2>
-        <div id="food-select">
-            <label for="existing" id="foods-label">Foods: </label>
-                <ul name="existing" id="existing-items">
-                </ul>
+        <div class="flex flex-col justify-around">
+            <h2 id="add-food-h2">Add food</h2>
+            <div id="food-select">
+                <label for="existing" id="foods-label">Foods: </label>
+                    <ul name="existing" id="existing-items">
+                    </ul>
+            </div>
         </div>
-          
-        <h2 id="new-item-text">Add new item</h2>
-        <div id="new-item-all">
-            <div id="item-name">
-                <label for="name">Item name: </label>
+        <div class="">
+            <h2 id="new-item-text">Add new item</h2>
+                <div id="item-name">
+                    <label for="name">Item name: </label>
                     <input name='name' type="text" id="new-item-name">
-            </div>
-            <div id="serving-size">
-                <label for='servingS'>Serving size: </label>
-                    <input name="servingS" type="text" id="new-item-serving-size">
-            </div>
-            <div id="calories">
-                <label for="calories">Calories: </label>
-                    <input name="calories" type="text" id="new-item-cals">
-            </div> 
-            <div id="protein">    
-                <label for="protein">Protein: </label>
-                    <input name="protein" type="text" id="new-item-protein">
-            </div>
-            <div id="fat">
-                <label for="fat">Fat: </label>
-                    <input name="fat" type="text" id="new-item-fat">
-            </div> 
-            <div id="carbs">
-                <label for="carbs">Carbs: </label>
-                    <input name="carbs" type="text" id="new-item-carbs">
-            </div>
-        </div>
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <h2 id="modalLabel">Edit food</h2>
-                <div id="edit-item-name">
-                    <label for="editName">Name: </label>
-                    <input name="editName" type="text" id="edit-item-name-val">
+                
+                    <div id="serving-size">
+                        <label for='servingS'>Serving size: </label>
+                            <input name="servingS" type="text" id="new-item-serving-size">
+                    </div>
+                    <div id="calories">
+                        <label for="calories">Calories: </label>
+                            <input name="calories" type="text" id="new-item-cals">
+                    </div> 
+                    <div id="protein">    
+                        <label for="protein">Protein: </label>
+                            <input name="protein" type="text" id="new-item-protein">
+                    </div>
+                    <div id="fat">
+                        <label for="fat">Fat: </label>
+                            <input name="fat" type="text" id="new-item-fat">
+                    </div> 
+                    <div id="carbs">
+                        <label for="carbs">Carbs: </label>
+                            <input name="carbs" type="text" id="new-item-carbs">
+                    </div>
                 </div>
-                <div id="edit-item-servings">
-                    <label for="editServings">Serving size: </label>
-                    <input name="editServings" type="text" id="edit-item-servings-val">
-                </div>
-                <div id="edit-item-calories">
-                    <label for="editCalories">Calories: </label>
-                    <input name="editCalories" type="text" id="edit-item-calories-val">
-                </div>
-                <div id="edit-item-protein">
-                    <label for="editProtein">Protein: </label>
-                    <input name="editProtein" type="text" id="edit-item-protein-val">
-                </div>
-                <div id="edit-item-fat">
-                    <label for="editFat">Fat: </label>
-                    <input name="editFat" type="text" id="edit-item-fat-val">
-                </div>
-                <div id="edit-item-carbs">
-                    <label for="editCarbs">Carbs: </label>
-                    <input name="editCarbs" type="text" id="edit-item-carbs-val">
-                </div>
-                <button id="submit-modal">Submit</button>
+                <button id="add-new-button">Add item</button>
             </div>
-        </div>
-        <button id="add-new-button">Add item</button>
-        <div id="day-values">
-            <div id="day-cals">
-                <h2>Calories Eaten
-                    <p id="cals-p">0</p>
-                </h2>
-            </div> 
-            <h2 id="macros-label">Macros</h2>
-            <div id="day-protein">
-                <h4>Protein
-                    <p id="protein-p">0</p>
-                </h4>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <h2 id="modalLabel">Edit food</h2>
+                    <div id="edit-item-name">
+                        <label for="editName">Name: </label>
+                        <input name="editName" type="text" id="edit-item-name-val">
+                    </div>
+                    <div id="edit-item-servings">
+                        <label for="editServings">Serving size: </label>
+                        <input name="editServings" type="text" id="edit-item-servings-val">
+                    </div>
+                    <div id="edit-item-calories">
+                        <label for="editCalories">Calories: </label>
+                        <input name="editCalories" type="text" id="edit-item-calories-val">
+                    </div>
+                    <div id="edit-item-protein">
+                        <label for="editProtein">Protein: </label>
+                        <input name="editProtein" type="text" id="edit-item-protein-val">
+                    </div>
+                    <div id="edit-item-fat">
+                        <label for="editFat">Fat: </label>
+                        <input name="editFat" type="text" id="edit-item-fat-val">
+                    </div>
+                    <div id="edit-item-carbs">
+                        <label for="editCarbs">Carbs: </label>
+                        <input name="editCarbs" type="text" id="edit-item-carbs-val">
+                    </div>
+                    <button id="submit-modal">Submit</button>
+                </div>
             </div>
-            <div id="day-carbs">
-                <h4>Carbs
-                    <p id="carbs-p">0</p>
-                </h4>
+            <div class="">
+                <div id="day-values">
+                    <div id="day-cals">
+                        <h2>Calories Eaten
+                            <p id="cals-p">0</p>
+                        </h2>
+                    </div> 
+                    <h2 id="macros-label">Macros</h2>
+                    <div id="day-protein">
+                        <h4>Protein
+                            <p id="protein-p">0</p>
+                        </h4>
+                    </div>
+                    <div id="day-carbs">
+                        <h4>Carbs
+                            <p id="carbs-p">0</p>
+                        </h4>
+                    </div>
+                    <div id="day-fat">
+                        <h4>Fat
+                            <p id="fat-p">0</p>
+                        </h4>
+                    </div>
+                </div>
+                <button id="new-day">New Day</button>
             </div>
-            <div id="day-fat">
-                <h4>Fat
-                    <p id="fat-p">0</p>
-                </h4>
-            </div>
-        </div>
-        <button id="new-day">New Day</button>
-    </div>
     <script src="app.js"></script>
 </body>
 </html>

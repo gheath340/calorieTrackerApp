@@ -294,13 +294,14 @@ function getData () {
             //hide data ui
             //show login or register
             document.getElementById("mainDiv").style.display = "none"
-            //document.getElementById("loginDiv").style.display = "block"
+            document.getElementById("loginDiv").style.display = "flex"
             document.getElementById("registerDiv").style.display = "none"
             return;
         }
         document.getElementById("loginDiv").style.display = "none"
-        //document.getElementById("mainDiv").style.display = "block"
+        document.getElementById("mainDiv").style.display = "flex"
         document.getElementById("registerDiv").style.display = "none"
+        document.getElementById("myModal").style.display = "none"
         response.json().then(function (data) {
             itemList = data
             console.log("items from server: ", itemList)
