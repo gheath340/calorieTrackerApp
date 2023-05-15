@@ -323,18 +323,17 @@ function getData () {
             itemList.forEach(function (item) {
 
                 var newListItem = document.createElement('li')
-                //var newDiv = document.createElement('div')
-                //newDiv.classList.add('flex')
-                //newDiv.classList.add('flex-col')
-                //newListItem.appendChild(newDiv)
-                //newListItem.innerHTML = item["name"] + " " + item["servingsize"]
                 newListItem.classList.add("list-items")
+                newListItem.classList.add("w-2/5")
                 var newLabel = document.createElement("label")
                 newLabel.innerHTML = item["name"] + " " + item["servingsize"]
                 newListItem.appendChild(newLabel)
 
                 var newListItem2 = document.createElement('li')
                 newListItem2.classList.add("list-items")
+                newListItem2.classList.add("flex")
+                newListItem2.classList.add('justify-evenly')
+                newListItem2.classList.add("w-3/4")
 
                 //make delete button child for each item
                 var deleteButton = document.createElement("button")
