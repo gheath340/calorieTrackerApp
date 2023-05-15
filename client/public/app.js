@@ -323,29 +323,50 @@ function getData () {
             itemList.forEach(function (item) {
 
                 var newListItem = document.createElement('li')
-                newListItem.value = item["name"]
-                newListItem.innerHTML = item["name"] + " " + item["servingsize"]
+                //var newDiv = document.createElement('div')
+                //newDiv.classList.add('flex')
+                //newDiv.classList.add('flex-col')
+                //newListItem.appendChild(newDiv)
+                //newListItem.innerHTML = item["name"] + " " + item["servingsize"]
                 newListItem.classList.add("list-items")
+                var newLabel = document.createElement("label")
+                newLabel.innerHTML = item["name"] + " " + item["servingsize"]
+                newListItem.appendChild(newLabel)
+
+                var newListItem2 = document.createElement('li')
+                newListItem2.classList.add("list-items")
 
                 //make delete button child for each item
                 var deleteButton = document.createElement("button")
                 deleteButton.innerHTML = "Delete"
                 deleteButton.classList.add("delete-buttons")
+                deleteButton.classList.add("rounded-md")
+                deleteButton.classList.add("bg-sky-900")
+                deleteButton.classList.add("hover:bg-sky-700")
+                deleteButton.classList.add("p-1")
+                deleteButton.classList.add("text-white")
+                deleteButton.classList.add("w-1/4")
                 deleteButton.onclick = function () {
                     console.log("Delete button pressed", item.id)
                     if (confirm("Are you sure?")) {   
                         deleteFood(item.id)
                     }
                 }
-                newListItem.appendChild(deleteButton)
+                newListItem2.appendChild(deleteButton)
 
                 //make edit button for each item
                 var editButton = document.createElement("button")
                 editButton.innerHTML = "Edit"
                 editButton.classList.add("edit-buttons")
+                editButton.classList.add("rounded-md")
+                editButton.classList.add("bg-sky-900")
+                editButton.classList.add("hover:bg-sky-700")
+                editButton.classList.add("p-1")
+                editButton.classList.add("text-white")
+                editButton.classList.add("w-1/4")
                 editButton.onclick = function () {
                     console.log("Edit button pressed", item.id)   
-                        //modal.style.display = "block"
+                        modal.style.display = "flex"
                         itemId = item.id
                         document.querySelector('#edit-item-name-val').value = item["name"]
                         document.querySelector('#edit-item-servings-val').value = item["servingsize"]
@@ -354,11 +375,17 @@ function getData () {
                         document.querySelector('#edit-item-fat-val').value = item["fat"]
                         document.querySelector('#edit-item-carbs-val').value = item["carbs"]
                 }
-                newListItem.appendChild(editButton)
+                newListItem2.appendChild(editButton)
                 //make add button for each item
                 var addButton = document.createElement("button")
                 addButton.innerHTML = "Add"
                 addButton.classList.add("add-buttons")
+                addButton.classList.add("rounded-md")
+                addButton.classList.add("bg-sky-900")
+                addButton.classList.add("hover:bg-sky-700")
+                addButton.classList.add("p-1")
+                addButton.classList.add("text-white")
+                addButton.classList.add("w-1/4")
                 addButton.onclick = function () {
                     var calories = item["calories"]
                     var protein = item["protein"]
@@ -367,8 +394,9 @@ function getData () {
 
                     updateDayHTML(calories, protein, fat, carbs)
                 }
-                newListItem.appendChild(addButton)
+                newListItem2.appendChild(addButton)
                 listOfItems.appendChild(newListItem)
+                listOfItems.appendChild(newListItem2)
     })
             })
             

@@ -15,10 +15,10 @@
         </div>  
         <div id="loginDiv" class="flex flex-col justify-center items-center gap-3 h-1/2 w-1/2">
             <div id="loginEmail" class="justify-center items-center w-full">
-                <input placeholder="Email" name='loginEmail' type="text" id="emailInput" class="border-2 rounded-md border-gray-200 hover:border-gray-400 h-full w-full">
+                <input placeholder="Email" name='loginEmail' type="text" id="emailInput" class="rounded outline-sky-300 h-full w-full">
             </div>
             <div id="loginPass" class="justify-center content-center w-full">
-                <input placeholder="Password" name='loginPass' type="text" id="passwordInput" class="border-2 rounded-md border-gray-200 hover:border-gray-400 h-full w-full">
+                <input placeholder="Password" name='loginPass' type="text" id="passwordInput" class="rounded outline-sky-300 h-full w-full">
             </div>
             <div class="flex flex-row justify-center content-center gap-4 w-3/4">
                 <button id="loginButton" class="rounded-md hover:bg-sky-700 p-1 text-white w-1/2 bg-sky-900">Login</button>
@@ -44,48 +44,28 @@
             <input name='registerLast' type="text" id="regLastInput">
         </div>
         <div id="regRegisterButton">
-            <button id="regRegisterButton">Register</button>
+            <button id="regRegisterButton" class="rounded-md hover:bg-sky-700 p-1 text-white w-1/2 bg-sky-900">Register</button>
         </div>
     </div>
 
-    <div id="mainDiv">
-        <div class="flex flex-col justify-around">
-            <h2 id="add-food-h2">Add food</h2>
-            <div id="food-select">
-                <label for="existing" id="foods-label">Foods: </label>
-                    <ul name="existing" id="existing-items">
+    <div id="mainDiv" class="h-4/6 w-4/6 flex flex-row justify-evenly">
+        <div class="self-start flex flex-col justify-center items-center w-1/3 h-1/2 shadow-xl bg-sky-300/25 gap-2">
+            <div id="food-select" class="flex flex-col items-center justify-center gap-2">
+                <label for="existing" id="foods-label" class="text-2xl">Foods</label>
+                    <ul name="existing" id="existing-items" class="flex flex-col gap-2">
                     </ul>
             </div>
         </div>
-        <div class="">
-            <h2 id="new-item-text">Add new item</h2>
-                <div id="item-name">
-                    <label for="name">Item name: </label>
-                    <input name='name' type="text" id="new-item-name">
-                
-                    <div id="serving-size">
-                        <label for='servingS'>Serving size: </label>
-                            <input name="servingS" type="text" id="new-item-serving-size">
-                    </div>
-                    <div id="calories">
-                        <label for="calories">Calories: </label>
-                            <input name="calories" type="text" id="new-item-cals">
-                    </div> 
-                    <div id="protein">    
-                        <label for="protein">Protein: </label>
-                            <input name="protein" type="text" id="new-item-protein">
-                    </div>
-                    <div id="fat">
-                        <label for="fat">Fat: </label>
-                            <input name="fat" type="text" id="new-item-fat">
-                    </div> 
-                    <div id="carbs">
-                        <label for="carbs">Carbs: </label>
-                            <input name="carbs" type="text" id="new-item-carbs">
-                    </div>
-                </div>
-                <button id="add-new-button">Add item</button>
-            </div>
+        <div class="self-start order-3 flex flex-col justify-center items-center w-1/3 h-1/2 shadow-xl bg-sky-300/25 gap-2">
+            <h2 id="new-item-text" class="text-2xl">Add new item</h2>
+                <input placeholder="Item Name" name='name' type="text" id="new-item-name" class="rounded outline-sky-300 w-1/2">
+                <input placeholder="Serving size" name="servingS" type="text" id="new-item-serving-size" class="rounded outline-sky-300 w-1/2">
+                <input placeholder="Calories" name="calories" type="text" id="new-item-cals" class="rounded outline-sky-300 w-1/2">   
+                <input placeholder="Protein" name="protein" type="text" id="new-item-protein" class="rounded outline-sky-300 w-1/2">
+                <input placeholder="Fat" name="fat" type="text" id="new-item-fat" class="rounded outline-sky-300 w-1/2">
+                <input placeholder="Carbs" name="carbs" type="text" id="new-item-carbs" class="rounded outline-sky-300 w-1/2">
+                <button id="add-new-button" class="rounded-md hover:bg-sky-700 p-1 text-white bg-sky-900 w-1/3">Add item</button>
+        </div>
             <div id="myModal" class="modal">
                 <div class="modal-content">
                     <h2 id="modalLabel">Edit food</h2>
@@ -116,31 +96,18 @@
                     <button id="submit-modal">Submit</button>
                 </div>
             </div>
-            <div class="">
-                <div id="day-values">
-                    <div id="day-cals">
-                        <h2>Calories Eaten
-                            <p id="cals-p">0</p>
-                        </h2>
-                    </div> 
-                    <h2 id="macros-label">Macros</h2>
-                    <div id="day-protein">
-                        <h4>Protein
-                            <p id="protein-p">0</p>
-                        </h4>
-                    </div>
-                    <div id="day-carbs">
-                        <h4>Carbs
-                            <p id="carbs-p">0</p>
-                        </h4>
-                    </div>
-                    <div id="day-fat">
-                        <h4>Fat
-                            <p id="fat-p">0</p>
-                        </h4>
-                    </div>
+            <div class="self-end order-2 flex flex-col justify-center items-center w-1/3 h-1/2 shadow-xl bg-sky-300/25 gap-2">
+                <div id="day-values" class="flex flex-col justify-center items-center gap-2">
+                    <h2>Calories Eaten</h2>
+                    <p id="cals-p">0</p>
+                    <h4>Protein</h4>
+                    <p id="protein-p">0</p>
+                    <h4>Carbs</h4>
+                    <p id="carbs-p">0</p>
+                    <h4>Fat</h4>
+                    <p id="fat-p">0</p>
                 </div>
-                <button id="new-day">New Day</button>
+                <button id="new-day" class="rounded-md hover:bg-sky-700 p-1 text-white bg-sky-900 w-1/3">New Day</button>
             </div>
     <script src="app.js"></script>
 </body>
