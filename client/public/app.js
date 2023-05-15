@@ -324,7 +324,7 @@ function getData () {
 
                 var newListItem = document.createElement('li')
                 newListItem.classList.add("list-items")
-                newListItem.classList.add("w-2/5")
+                newListItem.classList.add("text-xl")
                 var newLabel = document.createElement("label")
                 newLabel.innerHTML = item["name"] + " " + item["servingsize"]
                 newListItem.appendChild(newLabel)
