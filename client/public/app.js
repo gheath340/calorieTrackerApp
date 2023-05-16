@@ -1,12 +1,4 @@
 const BASE_URL = "http://localhost:8080/";
-                       
-var itemList = []
-//values
-var calsConst = 0
-var proteinConst = 0
-var fatConst = 0
-var carbsConst = 0
-var itemId
 //buttons
 var addExisting = document.querySelector("#add-existing-button")
 var addNew = document.querySelector('#add-new-button')
