@@ -338,7 +338,7 @@ function getData () {
                 deleteButton.classList.add("text-white")
                 deleteButton.classList.add("w-1/4")
                 deleteButton.classList.add("text-xs")
-                deleteButton.classList.add("lg:text-base")
+                deleteButton.classList.add("xl:text-base")
                 deleteButton.onclick = function () {
                     console.log("Delete button pressed", item.id)
                     if (confirm("Are you sure?")) {   
@@ -357,6 +357,8 @@ function getData () {
                 editButton.classList.add("p-1")
                 editButton.classList.add("text-white")
                 editButton.classList.add("w-1/4")
+                editButton.classList.add("text-xs")
+                editButton.classList.add("xl:text-base")
                 editButton.onclick = function () {
                     console.log("Edit button pressed", item.id)   
                         modal.style.display = "flex"
@@ -379,6 +381,8 @@ function getData () {
                 addButton.classList.add("p-1")
                 addButton.classList.add("text-white")
                 addButton.classList.add("w-1/4")
+                addButton.classList.add("text-xs")
+                addButton.classList.add("xl:text-base")
                 addButton.onclick = function () {
                     var calories = item["calories"]
                     var protein = item["protein"]

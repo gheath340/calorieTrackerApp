@@ -734,4 +734,9 @@ video {
     font-size: 1.875rem;
     line-height: 2.25rem;
   }
+
+  .xl\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 }
