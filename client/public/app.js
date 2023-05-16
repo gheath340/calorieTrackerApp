@@ -6,10 +6,6 @@ var newDay = document.querySelector('#new-day')
 console.log("add new button query: ", addNew)
 console.log("add existing button query: ", addExisting)
 
-var modal = document.querySelector("#myModal")
-var submitModal = document.querySelector("#submit-modal")
-
-
 newDay.onclick = function () {
     createDay()
 }
@@ -48,7 +44,7 @@ function login (email, password) {
 }
 
 goToRegister.onclick = function () {
-    document.getElementById("registerDiv").style.display = "block"
+    document.getElementById("registerDiv").style.display = "flex"
     document.getElementById("loginDiv").style.display = "none"
 }
 
@@ -61,6 +57,13 @@ submitRegistrationButton.onclick = function() {
     var lName = document.querySelector('#regLastInput').value
     
     createUser(email, password, fName, lName)
+}
+
+var registrationBackButton = document.querySelector("#regBackButton")
+
+registrationBackButton.onclick = function() {
+    document.getElementById("registerDiv").style.display = "none"
+    document.getElementById("loginDiv").style.display = "flex"
 }
 
 
@@ -152,7 +155,9 @@ function deleteFood (id){
     })
 }
 
-submitModal.onclick = function () {
+var submitEditButton = document.getElementById("submit-edit")
+
+submitEditButton.onclick = function () {
     submitEdit(itemId)
 }
 
@@ -167,7 +172,7 @@ function submitEdit (id) {
 
     updateItem(name, servingS, cals, protein, fat, carbs, id)
 
-    modal.style.display = "none"
+    var editScreen = document.getElementById("editScreen").style.display = "none"
 }
 
 function updateItem (itemName, servingSize, calories, protein, fat, carbs, id) {
@@ -288,12 +293,13 @@ function getData () {
             document.getElementById("mainDiv").style.display = "none"
             document.getElementById("loginDiv").style.display = "flex"
             document.getElementById("registerDiv").style.display = "none"
+            document.getElementById("editScreen").style.display = "none"
             return;
         }
         document.getElementById("loginDiv").style.display = "none"
         document.getElementById("mainDiv").style.display = "flex"
         document.getElementById("registerDiv").style.display = "none"
-        document.getElementById("myModal").style.display = "none"
+        document.getElementById("editScreen").style.display = "none"
         response.json().then(function (data) {
             itemList = data
             console.log("items from server: ", itemList)
@@ -360,15 +366,18 @@ function getData () {
                 editButton.classList.add("text-xs")
                 editButton.classList.add("xl:text-base")
                 editButton.onclick = function () {
-                    console.log("Edit button pressed", item.id)   
-                        modal.style.display = "flex"
-                        itemId = item.id
-                        document.querySelector('#edit-item-name-val').value = item["name"]
-                        document.querySelector('#edit-item-servings-val').value = item["servingsize"]
-                        document.querySelector('#edit-item-calories-val').value = item["calories"]
-                        document.querySelector('#edit-item-protein-val').value = item["protein"]
-                        document.querySelector('#edit-item-fat-val').value = item["fat"]
-                        document.querySelector('#edit-item-carbs-val').value = item["carbs"]
+                    console.log("Edit button pressed", item.id)
+                    document.getElementById("loginDiv").style.display = "none"
+                    document.getElementById("mainDiv").style.display = "none"
+                    document.getElementById("registerDiv").style.display = "none"  
+                    document.getElementById("editScreen").style.display = "flex"
+                    itemId = item.id
+                    document.querySelector('#edit-item-name-val').value = item["name"]
+                    document.querySelector('#edit-item-servings-val').value = item["servingsize"]
+                    document.querySelector('#edit-item-calories-val').value = item["calories"]
+                    document.querySelector('#edit-item-protein-val').value = item["protein"]
+                    document.querySelector('#edit-item-fat-val').value = item["fat"]
+                    document.querySelector('#edit-item-carbs-val').value = item["carbs"]
                 }
                 newListItem2.appendChild(editButton)
                 //make add button for each item

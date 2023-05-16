@@ -15,48 +15,38 @@
         </div>  
         <div id="loginDiv" class="flex flex-col justify-center items-center gap-3 h-1/3 w-1/2">
             <div id="loginEmail" class="justify-center items-center w-full">
-                <input placeholder="Email" name='loginEmail' type="text" id="emailInput" class="rounded outline-sky-300 h-full w-full">
+                <input placeholder="Username" name='loginEmail' type="text" id="emailInput" class="rounded outline-sky-300 h-full w-full">
             </div>
             <div id="loginPass" class="justify-center content-center w-full">
                 <input placeholder="Password" name='loginPass' type="text" id="passwordInput" class="rounded outline-sky-300 h-full w-full">
             </div>
             <div class="flex flex-row justify-center content-center gap-4 w-3/4">
                 <button id="loginButton" class="text-xs lg:text-base rounded-md hover:bg-sky-700 p-1 text-white w-1/2 bg-sky-900">Login</button>
-                <button id="logRegisterbutton" class="text-xs lg:text-base rounded-md hover:bg-sky-700 p-1 text-white w-1/2 bg-sky-900">Register</button>
+                <button id="logRegisterbutton" class="text-xs lg:text-base rounded-md hover:bg-sky-700 p-1 text-white w-3/5 bg-sky-900">Register</button>
             </div>
         </div>
     </div>
-    <div id="registerDiv">
-        <div id="registerEmail">
-            <label for="registerEmail">Email: </label>
-            <input name='registerEmail' type="text" id="regEmailInput">
-        </div>
-        <div id="registerPass">
-            <label for="registerPassword">Password: </label>
-            <input name='registerPassword' type="text" id="regPasswordInput">
-        </div>
-        <div id="registerFirst">
-            <label for="registerFirst">First Name: </label>
-            <input name='registerFirst' type="text" id="regFirstInput">
-        </div>
-        <div id="registerLast">
-            <label for="registerLast">Last Name: </label>
-            <input name='registerLast' type="text" id="regLastInput">
-        </div>
-        <div id="regRegisterButton">
-            <button id="regRegisterButton" class="rounded-md hover:bg-sky-700 p-1 text-white w-1/2 bg-sky-900">Register</button>
+    <div id="registerDiv" class="flex flex-col w-1/3 h-1/2 bg-sky-300/25 justify-center items-center gap-3">
+        <label class="text-2xl xl:text-3xl">Register</label>
+        <input placeholder="Username" name='registerEmail' type="text" id="regEmailInput" class="rounded outline-sky-300 justify-self-center self-center w-1/3">
+        <input placeholder="Password" name='registerPassword' type="text" id="regPasswordInput" class="rounded outline-sky-300 justify-self-center self-center w-1/3">
+        <input placeholder="First name" name='registerFirst' type="text" id="regFirstInput" class="rounded outline-sky-300 justify-self-center self-center w-1/3">
+        <input placeholder="Last name" name='registerLast' type="text" id="regLastInput" class="rounded outline-sky-300 justify-self-center self-center w-1/3">
+        <div class="flex w-1/3 justify-evenly">
+            <button id="regRegisterButton" class="text-xs lg:text-base rounded-md hover:bg-sky-700 p-1 text-white bg-sky-900 justify-self-center self-center">Register</button>
+            <button id="regBackButton" class="text-xs lg:text-base rounded-md hover:bg-sky-700 p-1 text-white bg-sky-900 justify-self-center self-center">Back</button>
         </div>
     </div>
 
-    <div id="mainDiv" class="h-4/6 w-4/6 flex flex-row justify-evenly">
-        <div class="self-start flex flex-col justify-center items-center w-1/3 h-1/2 shadow-xl bg-sky-300/25 gap-2">
+    <div id="mainDiv" class="flex flex-col justify-center items-center h-full w-full md:h-4/6 md:w-4/6 md:flex-row md:justify-evenly">
+        <div class="md:self-start flex flex-col justify-center items-center w-1/3 h-1/2 md:shadow-xl bg-sky-300/25 gap-2">
             <div id="food-select" class="flex flex-col items-center justify-center gap-2 w-full">
                 <label for="existing" id="foods-label" class="text-2xl">Foods</label>
                     <ul name="existing" id="existing-items" class="flex flex-col gap-2 w-full justify-center items-center">
                     </ul>
             </div>
         </div>
-        <div class="self-start order-3 flex flex-col justify-center items-center w-1/3 h-1/2 shadow-xl bg-sky-300/25 gap-2">
+        <div class="md:self-start md:order-3 flex flex-col justify-center items-center w-1/3 h-1/2 md:shadow-xl bg-sky-300/25 gap-2">
             <h2 id="new-item-text" class="text-2xl">Add new item</h2>
                 <input placeholder="Item Name" name='name' type="text" id="new-item-name" class="rounded outline-sky-300 w-1/2">
                 <input placeholder="Serving size" name="servingS" type="text" id="new-item-serving-size" class="rounded outline-sky-300 w-1/2">
@@ -66,37 +56,7 @@
                 <input placeholder="Carbs" name="carbs" type="text" id="new-item-carbs" class="rounded outline-sky-300 w-1/2">
                 <button id="add-new-button" class="text-xs xl:text-base rounded-md hover:bg-sky-700 p-1 text-white bg-sky-900 w-1/3">Add item</button>
         </div>
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                    <h2 id="modalLabel">Edit food</h2>
-                    <div id="edit-item-name">
-                        <label for="editName">Name: </label>
-                        <input name="editName" type="text" id="edit-item-name-val">
-                    </div>
-                    <div id="edit-item-servings">
-                        <label for="editServings">Serving size: </label>
-                        <input name="editServings" type="text" id="edit-item-servings-val">
-                    </div>
-                    <div id="edit-item-calories">
-                        <label for="editCalories">Calories: </label>
-                        <input name="editCalories" type="text" id="edit-item-calories-val">
-                    </div>
-                    <div id="edit-item-protein">
-                        <label for="editProtein">Protein: </label>
-                        <input name="editProtein" type="text" id="edit-item-protein-val">
-                    </div>
-                    <div id="edit-item-fat">
-                        <label for="editFat">Fat: </label>
-                        <input name="editFat" type="text" id="edit-item-fat-val">
-                    </div>
-                    <div id="edit-item-carbs">
-                        <label for="editCarbs">Carbs: </label>
-                        <input name="editCarbs" type="text" id="edit-item-carbs-val">
-                    </div>
-                    <button id="submit-modal">Submit</button>
-                </div>
-            </div>
-            <div class="self-end order-2 flex flex-col justify-center items-center w-1/3 h-1/2 shadow-xl bg-sky-300/25 gap-1">
+            <div class="md:self-end md:order-2 flex flex-col justify-center items-center w-1/3 h-1/2 md:shadow-xl bg-sky-300/25 gap-1">
                 <div id="day-values" class="flex flex-col justify-center items-center h-5/6">
                     <h2 class="text-2xl">Calories Eaten</h2>
                     <p id="cals-p" class="text-xl">0</p>
@@ -109,6 +69,17 @@
                 </div>
                 <button id="new-day" class="text-xs xl:text-base rounded-md hover:bg-sky-700 p-1 text-white bg-sky-900 w-1/3">New Day</button>
             </div>
+    </div>
+    <div id="editScreen" class="flex flex-col w-1/3 h-1/2 bg-sky-300/25 justify-center items-center gap-3">
+        <h2 class="text-2xl xl:text-3xl">Edit food</h2>
+        <input name="editName" type="text" id="edit-item-name-val" class="rounded outline-sky-300 w-1/2">
+        <input name="editServings" type="text" id="edit-item-servings-val" class="rounded outline-sky-300 w-1/2">
+        <input name="editCalories" type="text" id="edit-item-calories-val" class="rounded outline-sky-300 w-1/2">
+        <input name="editProtein" type="text" id="edit-item-protein-val" class="rounded outline-sky-300 w-1/2">
+        <input name="editFat" type="text" id="edit-item-fat-val" class="rounded outline-sky-300 w-1/2">
+        <input name="editCarbs" type="text" id="edit-item-carbs-val" class="rounded outline-sky-300 w-1/2">
+        <button id="submit-edit" class="text-xs xl:text-base rounded-md hover:bg-sky-700 p-1 text-white bg-sky-900 w-1/4">Submit</button>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
