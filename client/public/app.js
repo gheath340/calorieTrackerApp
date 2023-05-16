@@ -337,6 +337,8 @@ function getData () {
                 deleteButton.classList.add("p-1")
                 deleteButton.classList.add("text-white")
                 deleteButton.classList.add("w-1/4")
+                deleteButton.classList.add("text-xs")
+                deleteButton.classList.add("lg:text-base")
                 deleteButton.onclick = function () {
                     console.log("Delete button pressed", item.id)
                     if (confirm("Are you sure?")) {   
