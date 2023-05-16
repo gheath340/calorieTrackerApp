@@ -3,8 +3,6 @@ const BASE_URL = "http://localhost:8080/";
 var addExisting = document.querySelector("#add-existing-button")
 var addNew = document.querySelector('#add-new-button')
 var newDay = document.querySelector('#new-day')
-console.log("add new button query: ", addNew)
-console.log("add existing button query: ", addExisting)
 
 newDay.onclick = function () {
     createDay()
@@ -210,8 +208,8 @@ function updateDay (id, calories, protein, fat, carbs) {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
     }).then(function (response) {
-        //getData()
-        getDay(id)
+        getData()
+        //getDay(id)
     })
 }
 
@@ -219,18 +217,15 @@ function getDay(id) {
     fetch(BASE_URL + "days/" + id, {credentials: "include"}).then(function (response) {
         //get the current day info and fill day info
         if (response.status == 401) {
-            //hide data ui
-            //show login or register
+
             document.getElementById("mainDiv").style.display = "none"
-            //document.getElementById("loginDiv").style.display = "block"
+            document.getElementById("loginDiv").style.display = "flex"
             return;
         }
         document.getElementById("loginDiv").style.display = "none"
-        //document.getElementById("mainDiv").style.display = "block"
+        document.getElementById("mainDiv").style.display = "flex"
         response.json().then(function (data) {
-            console.log("day from server: ", data)
             //display data in html
-            console.log("calories: " + data['fat'])
             document.getElementById('cals-p').innerHTML = data['calories']
             document.getElementById('protein-p').innerHTML = data["protein"]
             document.getElementById('fat-p').innerHTML = data["fat"]
@@ -306,7 +301,6 @@ function getData () {
 
             //stuff goes below this
             var listOfItems = document.querySelector("#existing-items") 
-            console.log("list query: ", listOfItems)
     //display day info
             initDay()
     //empty list so it doesnt have it multiple times

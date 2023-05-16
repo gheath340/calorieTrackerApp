@@ -70,8 +70,6 @@ class HttpHandler(BaseHTTPRequestHandler):
             return
         db = FoodsDB()
         allRecords = db.getAllDays()
-        print("all days")
-        print(allRecords)
          #send status code, 200 means all good
         self.send_response(200)
         self.send_header("Content-type", "application/json")
@@ -84,8 +82,6 @@ class HttpHandler(BaseHTTPRequestHandler):
             return
         db = FoodsDB()
         day = db.getDay(id)
-        print("single day")
-        print(day)
          #send status code, 200 means all good
         self.send_response(200)
         self.send_header("Content-type", "application/json")
@@ -98,8 +94,6 @@ class HttpHandler(BaseHTTPRequestHandler):
             return
         db = FoodsDB()
         food = db.getOneFood(id)
-        print(id)
-        
         if food:
             self.send_response(200)
             self.send_header("Content-type", "application/json")
@@ -182,8 +176,6 @@ class HttpHandler(BaseHTTPRequestHandler):
         fat = decoded_body["fat"][0]
         carbs = decoded_body["carbs"][0]
         
-
-        print("raw update day request body:", decoded_body)
         db = FoodsDB()
         day = db.getDay(id)
 
@@ -205,7 +197,7 @@ class HttpHandler(BaseHTTPRequestHandler):
             self.end_headers()
         else:
             self.handleNotFound()
-        return
+
 
     def handleCreateAuthSession(self): #let them login
         length = self.headers["Content-Length"]

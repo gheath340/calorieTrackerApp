@@ -54,7 +54,6 @@ class FoodsDB:
         # needs food id
         # gives item associated with input id
         data = [food_id]
-        print(data)
         self.cursor.execute("SELECT * FROM foods WHERE id = %s", data)
         return self.cursor.fetchone()
 
