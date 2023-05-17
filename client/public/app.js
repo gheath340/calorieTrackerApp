@@ -18,6 +18,34 @@ loginButton.onclick = function () {
     login(email, password)
 }
 
+function divDisplayToFlex(divID) {
+    if (divID === "loginDiv") {
+        document.getElementById("mainDiv").style.display = "none"
+        document.getElementById("loginDiv").style.display = "flex"
+        document.getElementById("registerDiv").style.display = "none"
+        document.getElementById("editScreen").style.display = "none"
+    }
+    if (divID === "mainDiv") {
+        document.getElementById("mainDiv").style.display = "flex"
+        document.getElementById("loginDiv").style.display = "none"
+        document.getElementById("registerDiv").style.display = "none"
+        document.getElementById("editScreen").style.display = "none"
+    }
+    if (divID === "registerDiv") {
+        document.getElementById("mainDiv").style.display = "none"
+        document.getElementById("loginDiv").style.display = "none"
+        document.getElementById("registerDiv").style.display = "flex"
+        document.getElementById("editScreen").style.display = "none"
+    }
+    if (divID === "editScreen") {
+        document.getElementById("mainDiv").style.display = "none"
+        document.getElementById("loginDiv").style.display = "none"
+        document.getElementById("registerDiv").style.display = "none"
+        document.getElementById("editScreen").style.display = "flex"
+    }
+
+}
+
 function login (email, password) {
     var data = "email=" + encodeURIComponent(email)
     data += "&password=" + encodeURIComponent(password)
@@ -33,8 +61,7 @@ function login (email, password) {
         if (response.status == 401) {
             alert("Incorrect email or password")
         }else if (response.status == 201) {
-            document.getElementById("loginDiv").style.display = "none"
-            document.getElementById("mainDiv").style.display = "block"
+            divDisplayToFlex("mainDiv")
             getData()
         }
     })
@@ -42,8 +69,7 @@ function login (email, password) {
 }
 
 goToRegister.onclick = function () {
-    document.getElementById("registerDiv").style.display = "flex"
-    document.getElementById("loginDiv").style.display = "none"
+    divDisplayToFlex("registerDiv")
 }
 
 var submitRegistrationButton = document.querySelector("#regRegisterButton")
@@ -60,8 +86,7 @@ submitRegistrationButton.onclick = function() {
 var registrationBackButton = document.querySelector("#regBackButton")
 
 registrationBackButton.onclick = function() {
-    document.getElementById("registerDiv").style.display = "none"
-    document.getElementById("loginDiv").style.display = "flex"
+    divDisplayToFlex("loginDiv")
 }
 
 
@@ -85,8 +110,7 @@ function createUser (email, password, fName, lName) {
             return;
         }else if (response.status == 201){
             //hide registration and show login
-            document.getElementById("registerDiv").style.display = "none"
-            document.getElementById("loginDiv").style.display = "block"
+            divDisplayToFlex("loginDiv")
         }
 
     })
@@ -218,12 +242,10 @@ function getDay(id) {
         //get the current day info and fill day info
         if (response.status == 401) {
 
-            document.getElementById("mainDiv").style.display = "none"
-            document.getElementById("loginDiv").style.display = "flex"
+            divDisplayToFlex("loginDiv")
             return;
         }
-        document.getElementById("loginDiv").style.display = "none"
-        document.getElementById("mainDiv").style.display = "flex"
+        divDisplayToFlex("mainDiv")
         response.json().then(function (data) {
             //display data in html
             document.getElementById('cals-p').innerHTML = data['calories']
@@ -260,13 +282,11 @@ function initDay(){
     fetch(BASE_URL + "days", {credentials: "include"}).then(function (response) {
         response.json().then(function (data) {
             itemList = data
-            console.log("days: ", itemList)
             itemList.forEach(function (item) {
                 if(item["id"] > max) {
                     max = item["id"]
                 }
             })
-            console.log("max: " + max)
             itemList.forEach(function (item) {
                 if (item["id"] == max) {
                     document.getElementById('cals-p').innerHTML = item['calories']
@@ -285,20 +305,12 @@ function getData () {
         if (response.status == 401) {
             //hide data ui
             //show login or register
-            document.getElementById("mainDiv").style.display = "none"
-            document.getElementById("loginDiv").style.display = "flex"
-            document.getElementById("registerDiv").style.display = "none"
-            document.getElementById("editScreen").style.display = "none"
+            divDisplayToFlex("loginDiv")
             return;
         }
-        document.getElementById("loginDiv").style.display = "none"
-        document.getElementById("mainDiv").style.display = "flex"
-        document.getElementById("registerDiv").style.display = "none"
-        document.getElementById("editScreen").style.display = "none"
+        divDisplayToFlex("mainDiv")
         response.json().then(function (data) {
             itemList = data
-            console.log("items from server: ", itemList)
-
             //stuff goes below this
             var listOfItems = document.querySelector("#existing-items") 
     //display day info
@@ -340,7 +352,6 @@ function getData () {
                 deleteButton.classList.add("text-xs")
                 deleteButton.classList.add("xl:text-base")
                 deleteButton.onclick = function () {
-                    console.log("Delete button pressed", item.id)
                     if (confirm("Are you sure?")) {   
                         deleteFood(item.id)
                     }
@@ -360,11 +371,7 @@ function getData () {
                 editButton.classList.add("text-xs")
                 editButton.classList.add("xl:text-base")
                 editButton.onclick = function () {
-                    console.log("Edit button pressed", item.id)
-                    document.getElementById("loginDiv").style.display = "none"
-                    document.getElementById("mainDiv").style.display = "none"
-                    document.getElementById("registerDiv").style.display = "none"  
-                    document.getElementById("editScreen").style.display = "flex"
+                    divDisplayToFlex("editScreen")
                     itemId = item.id
                     document.querySelector('#edit-item-name-val').value = item["name"]
                     document.querySelector('#edit-item-servings-val').value = item["servingsize"]
