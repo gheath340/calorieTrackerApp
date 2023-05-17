@@ -299,6 +299,64 @@ function initDay(){
     })
 }
 
+function addButtonClasses(button) {
+    button.classList.add("rounded-md")
+    button.classList.add("bg-sky-900")
+    button.classList.add("hover:bg-sky-700")
+    button.classList.add("p-1")
+    button.classList.add("text-white")
+    button.classList.add("w-1/4")
+    button.classList.add("text-xs")
+    button.classList.add("xl:text-base")
+}
+
+function createAddButton(item) {
+    var addButton = document.createElement("button")
+    addButton.innerHTML = "Add"
+    addButton.classList.add("add-buttons")
+    addButtonClasses(addButton)
+    addButton.onclick = function () {
+        var calories = item["calories"]
+        var protein = item["protein"]
+        var fat = item["fat"]
+        var carbs = item["carbs"]
+
+        updateDayHTML(calories, protein, fat, carbs)
+    }
+    return addButton
+}
+
+function createEditButton(item) {
+    var editButton = document.createElement("button")
+    editButton.innerHTML = "Edit"
+    editButton.classList.add("edit-buttons")
+    addButtonClasses(editButton)
+    editButton.onclick = function () {
+        divDisplayToFlex("editScreen")
+        itemId = item.id
+        document.querySelector('#edit-item-name-val').value = item["name"]
+        document.querySelector('#edit-item-servings-val').value = item["servingsize"]
+        document.querySelector('#edit-item-calories-val').value = item["calories"]
+        document.querySelector('#edit-item-protein-val').value = item["protein"]
+        document.querySelector('#edit-item-fat-val').value = item["fat"]
+        document.querySelector('#edit-item-carbs-val').value = item["carbs"]
+    }
+    return editButton
+}
+
+function createDeleteButton(item) {
+    var deleteButton = document.createElement("button")
+    deleteButton.innerHTML = "Delete"
+    deleteButton.classList.add("delete-buttons")
+    addButtonClasses(deleteButton)
+    deleteButton.onclick = function () {
+        if (confirm("Are you sure?")) {   
+            deleteFood(item.id)
+        }
+    }
+    return deleteButton
+}
+
 //data has 1 top list consisting of 2 lists, list[0] represents all existing items and list[1] represents items eaten today
 function getData () {
     fetch(BASE_URL + "foods", {credentials: "include"}).then(function (response) {
@@ -339,69 +397,10 @@ function getData () {
                 newListItem2.classList.add('justify-evenly')
                 newListItem2.classList.add("w-3/4")
 
-                //make delete button child for each item
-                var deleteButton = document.createElement("button")
-                deleteButton.innerHTML = "Delete"
-                deleteButton.classList.add("delete-buttons")
-                deleteButton.classList.add("rounded-md")
-                deleteButton.classList.add("bg-sky-900")
-                deleteButton.classList.add("hover:bg-sky-700")
-                deleteButton.classList.add("p-1")
-                deleteButton.classList.add("text-white")
-                deleteButton.classList.add("w-1/4")
-                deleteButton.classList.add("text-xs")
-                deleteButton.classList.add("xl:text-base")
-                deleteButton.onclick = function () {
-                    if (confirm("Are you sure?")) {   
-                        deleteFood(item.id)
-                    }
-                }
-                newListItem2.appendChild(deleteButton)
-
-                //make edit button for each item
-                var editButton = document.createElement("button")
-                editButton.innerHTML = "Edit"
-                editButton.classList.add("edit-buttons")
-                editButton.classList.add("rounded-md")
-                editButton.classList.add("bg-sky-900")
-                editButton.classList.add("hover:bg-sky-700")
-                editButton.classList.add("p-1")
-                editButton.classList.add("text-white")
-                editButton.classList.add("w-1/4")
-                editButton.classList.add("text-xs")
-                editButton.classList.add("xl:text-base")
-                editButton.onclick = function () {
-                    divDisplayToFlex("editScreen")
-                    itemId = item.id
-                    document.querySelector('#edit-item-name-val').value = item["name"]
-                    document.querySelector('#edit-item-servings-val').value = item["servingsize"]
-                    document.querySelector('#edit-item-calories-val').value = item["calories"]
-                    document.querySelector('#edit-item-protein-val').value = item["protein"]
-                    document.querySelector('#edit-item-fat-val').value = item["fat"]
-                    document.querySelector('#edit-item-carbs-val').value = item["carbs"]
-                }
-                newListItem2.appendChild(editButton)
-                //make add button for each item
-                var addButton = document.createElement("button")
-                addButton.innerHTML = "Add"
-                addButton.classList.add("add-buttons")
-                addButton.classList.add("rounded-md")
-                addButton.classList.add("bg-sky-900")
-                addButton.classList.add("hover:bg-sky-700")
-                addButton.classList.add("p-1")
-                addButton.classList.add("text-white")
-                addButton.classList.add("w-1/4")
-                addButton.classList.add("text-xs")
-                addButton.classList.add("xl:text-base")
-                addButton.onclick = function () {
-                    var calories = item["calories"]
-                    var protein = item["protein"]
-                    var fat = item["fat"]
-                    var carbs = item["carbs"]
-
-                    updateDayHTML(calories, protein, fat, carbs)
-                }
-                newListItem2.appendChild(addButton)
+                newListItem2.appendChild(createDeleteButton(item))
+                newListItem2.appendChild(createEditButton(item))
+                newListItem2.appendChild(createAddButton(item))
+                
                 listOfItems.appendChild(newListItem)
                 listOfItems.appendChild(newListItem2)
     })
