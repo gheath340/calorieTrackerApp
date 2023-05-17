@@ -1,5 +1,5 @@
 const BASE_URL = "http://localhost:8080/";
-//buttons
+
 var addExisting = document.querySelector("#add-existing-button")
 var addNew = document.querySelector('#add-new-button')
 var newDay = document.querySelector('#new-day')
@@ -17,30 +17,23 @@ loginButton.onclick = function () {
 
     login(email, password)
 }
-
+//switch to displaying only wanted div
 function divDisplayToFlex(divID) {
+    document.getElementById("mainDiv").style.display = "none"
+    document.getElementById("loginDiv").style.display = "none"
+    document.getElementById("registerDiv").style.display = "none"
+    document.getElementById("editScreen").style.display = "none"
+    
     if (divID === "loginDiv") {
-        document.getElementById("mainDiv").style.display = "none"
         document.getElementById("loginDiv").style.display = "flex"
-        document.getElementById("registerDiv").style.display = "none"
-        document.getElementById("editScreen").style.display = "none"
     }
     if (divID === "mainDiv") {
         document.getElementById("mainDiv").style.display = "flex"
-        document.getElementById("loginDiv").style.display = "none"
-        document.getElementById("registerDiv").style.display = "none"
-        document.getElementById("editScreen").style.display = "none"
     }
     if (divID === "registerDiv") {
-        document.getElementById("mainDiv").style.display = "none"
-        document.getElementById("loginDiv").style.display = "none"
         document.getElementById("registerDiv").style.display = "flex"
-        document.getElementById("editScreen").style.display = "none"
     }
     if (divID === "editScreen") {
-        document.getElementById("mainDiv").style.display = "none"
-        document.getElementById("loginDiv").style.display = "none"
-        document.getElementById("registerDiv").style.display = "none"
         document.getElementById("editScreen").style.display = "flex"
     }
 
@@ -184,7 +177,6 @@ submitEditButton.onclick = function () {
 }
 
 function submitEdit (id) {
-
     var name = document.querySelector('#edit-item-name-val').value
     var servingS = document.querySelector('#edit-item-servings-val').value
     var cals = document.querySelector('#edit-item-calories-val').value
@@ -198,7 +190,6 @@ function submitEdit (id) {
 }
 
 function updateItem (itemName, servingSize, calories, protein, fat, carbs, id) {
-    //get data from input fields in pop up window
     var data = "name=" + encodeURIComponent(itemName)
     data += "&servingSize=" + encodeURIComponent(servingSize)
     data += "&calories=" + encodeURIComponent(calories)
@@ -218,6 +209,23 @@ function updateItem (itemName, servingSize, calories, protein, fat, carbs, id) {
     })
 }
 
+//get max day id and call updateDay to update the current day
+function getMaxDayID(calories, protein, fat, carbs){
+    var max = 0
+    fetch(BASE_URL + "days", {credentials: "include"}).then(function (response) {
+        response.json().then(function (data) {
+            itemList = data
+            itemList.forEach(function (item) {
+                if(item["id"] > max) {
+                    max = item["id"]
+                }
+            })
+            updateDay(max, calories, protein, fat, carbs)
+
+        })
+    })
+}
+
 function updateDay (id, calories, protein, fat, carbs) {
     var data = "calories=" + encodeURIComponent(calories)
     data += "&protein=" + encodeURIComponent(protein)
@@ -233,21 +241,17 @@ function updateDay (id, calories, protein, fat, carbs) {
         },
     }).then(function (response) {
         getData()
-        //getDay(id)
     })
 }
 
 function getDay(id) {
     fetch(BASE_URL + "days/" + id, {credentials: "include"}).then(function (response) {
-        //get the current day info and fill day info
         if (response.status == 401) {
-
             divDisplayToFlex("loginDiv")
             return;
         }
         divDisplayToFlex("mainDiv")
         response.json().then(function (data) {
-            //display data in html
             document.getElementById('cals-p').innerHTML = data['calories']
             document.getElementById('protein-p').innerHTML = data["protein"]
             document.getElementById('fat-p').innerHTML = data["fat"]
@@ -257,27 +261,7 @@ function getDay(id) {
     })
 }
 
-function updateDayHTML(calories, protein, fat, carbs){
-    var max = 0
-    //get the current days id
-    fetch(BASE_URL + "days", {credentials: "include"}).then(function (response) {
-        response.json().then(function (data) {
-            itemList = data
-            console.log("days: ", itemList)
-            itemList.forEach(function (item) {
-                if(item["id"] > max) {
-                    max = item["id"]
-                }
-            })
-            updateDay(max, calories, protein, fat, carbs)
-
-        })
-    })
-}
-
 function initDay(){
-    //get the max id of all items
-    //set innerhtml to values of max id item
     var max = 0
     fetch(BASE_URL + "days", {credentials: "include"}).then(function (response) {
         response.json().then(function (data) {
@@ -321,7 +305,7 @@ function createAddButton(item) {
         var fat = item["fat"]
         var carbs = item["carbs"]
 
-        updateDayHTML(calories, protein, fat, carbs)
+        getMaxDayID(calories, protein, fat, carbs)
     }
     return addButton
 }
@@ -357,23 +341,20 @@ function createDeleteButton(item) {
     return deleteButton
 }
 
-//data has 1 top list consisting of 2 lists, list[0] represents all existing items and list[1] represents items eaten today
+//give 401 error if not logged in or if logged in go to main screen and display data
 function getData () {
     fetch(BASE_URL + "foods", {credentials: "include"}).then(function (response) {
         if (response.status == 401) {
-            //hide data ui
-            //show login or register
             divDisplayToFlex("loginDiv")
             return;
         }
         divDisplayToFlex("mainDiv")
         response.json().then(function (data) {
             itemList = data
-            //stuff goes below this
             var listOfItems = document.querySelector("#existing-items") 
-    //display day info
+            //display day info
             initDay()
-    //empty list so it doesnt have it multiple times
+            //empty list so it doesnt have data multiple times
             listOfItems.innerHTML = ""
             document.querySelector('#new-item-name').value = ""
             document.querySelector('#new-item-serving-size').value = ""
@@ -381,7 +362,7 @@ function getData () {
             document.querySelector('#new-item-protein').value = ""
             document.querySelector('#new-item-fat').value = ""
             document.querySelector('#new-item-carbs').value = ""
-    //loop over list
+            //create list items and buttons for each food 
             itemList.forEach(function (item) {
 
                 var newListItem = document.createElement('li')
@@ -408,6 +389,5 @@ function getData () {
             
         })
     }
-
 
 getData()
